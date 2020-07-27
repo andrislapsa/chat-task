@@ -1,38 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Message } from './Message';
+import { SendMessage } from './SendMessage';
 
-
-function Message({ nickname, isMe, content }) {
-  return (
-    <div>
-      {isMe ? <strong>{nickname}</strong> : nickname} says: {content}
-    </div>
-  );
-}
-
-function SendMessage({ onSend }) {
-  const [message, setMessage] = useState('');
-
-  function onSubmit(e) {
-    e.preventDefault();
-    onSend(message);
-    setMessage('');
-  }
-
-  return (
-    <form onSubmit={onSubmit}>
-      <label>
-        Message:
-        <input
-          type="text"
-          onChange={({ target }) => setMessage(target.value)}
-          value={message}
-          autoFocus
-        />
-      </label>
-      <button type="submit">Send</button>
-    </form>
-  );
-}
 
 export function ChatPage({ nickname }) {
   const URL = 'ws://localhost:3030';
