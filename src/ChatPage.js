@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Message } from './Message';
 import { SendMessage } from './SendMessage';
+import styles from './ChatPage.module.scss';
 
 
 export function ChatPage({ nickname }) {
@@ -34,9 +35,9 @@ export function ChatPage({ nickname }) {
   }
 
   return (
-    <div>
-      Welcome {nickname}
-      <div>
+    <div className={styles.root}>
+      <div className={styles.messages}>
+        <div>Welcome to chat <strong>{nickname}</strong>!</div>
         {messages.map((message, index) => (
           <Message
             nickname={message.nickname}
@@ -46,7 +47,9 @@ export function ChatPage({ nickname }) {
           />
         ))}
       </div>
-      <SendMessage onSend={onSend} />
+      <div className={styles.sendMessage}>
+        <SendMessage onSend={onSend} />
+      </div>
     </div>
   );
 }

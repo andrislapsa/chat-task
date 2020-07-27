@@ -5,6 +5,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 30px;
+}
+
+input[type=text] {
+  min-width: 250px;
+}
+
+body, html, #root {
+  height: 100%;
+}
+
+#root {
+  border: 2px solid #ccc;
 }
 
 code {
