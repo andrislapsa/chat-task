@@ -40,9 +40,8 @@ export function ChatPage({ nickname }) {
         <div>Welcome to chat <strong>{nickname}</strong>!</div>
         {messages.map((message, index) => (
           <Message
-            nickname={message.nickname}
             isMe={message.nickname === nickname}
-            content={message.content}
+            {...message}
             key={index}
           />
         ))}
