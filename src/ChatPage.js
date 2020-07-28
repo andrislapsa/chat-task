@@ -4,7 +4,7 @@ import { SendMessage } from './SendMessage';
 import styles from './ChatPage.module.scss';
 
 
-export function ChatPage({ nickname }) {
+export function ChatPage({ nickname, onDisconnect }) {
   const URL = 'ws://localhost:3030';
   const [messages, setMessages] = useState([]);
   const webSocket = useRef(null);
@@ -24,11 +24,11 @@ export function ChatPage({ nickname }) {
     }
 
     webSocket.current.onclose = () => {
-      console.log('disconnected');
+      onDisconnect('got disconnected from WS');
     }
 
     window.ACTIVE_WS = webSocket.current;
-  }, [nickname]);
+  }, [nickname, onDisconnect]);
 
   function onSend(message) {
     webSocket.current.send(message);

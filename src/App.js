@@ -12,7 +12,8 @@ function App() {
     setNickname(chosenNickname);
   }
 
-  function onDisconnect() {
+  function onDisconnect(reason) {
+    console.log('got disconnected because', reason);
     setIsConnected(false);
   }
 
