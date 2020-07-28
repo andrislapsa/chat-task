@@ -15,10 +15,6 @@ h1 {
   font-size: 30px;
 }
 
-input[type=text] {
-  min-width: 250px;
-}
-
 body, html, #root {
   height: 100%;
 }
