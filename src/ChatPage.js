@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Message } from './Message';
 import { SendMessage } from './SendMessage';
 import styles from './ChatPage.module.scss';
 
 
 export function ChatPage({ nickname, onSend, messages, onTriggerDisconnect }) {
+  const afterMessagesEl = useRef();
+
+  useEffect(() => {
+    afterMessagesEl.current.scrollIntoView();
+  }, [messages])
+
   return (
     <div className={styles.root}>
       <div className={styles.messages}>
@@ -16,6 +22,7 @@ export function ChatPage({ nickname, onSend, messages, onTriggerDisconnect }) {
             key={index}
           />
         ))}
+        <div ref={afterMessagesEl} />
       </div>
       <div className={styles.sendMessage}>
         <SendMessage onSend={onSend} onDisconnect={onTriggerDisconnect} />
