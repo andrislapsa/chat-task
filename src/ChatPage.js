@@ -13,16 +13,20 @@ export function ChatPage({ nickname, onSend, messages, onTriggerDisconnect }) {
 
   return (
     <div className={styles.root}>
-      <div className={styles.messages}>
-        <div>Welcome to chat <strong>{nickname}</strong>!</div>
-        {messages.map((message, index) => (
-          <Message
-            isMe={message.nickname === nickname}
-            {...message}
-            key={index}
-          />
-        ))}
-        <div ref={afterMessagesEl} />
+      <div className={styles.messagesContainer}>
+        <div className={styles.messages}>
+          <div>
+            Welcome to the chat <strong className={styles.me}>{nickname}</strong>!
+          </div>
+          {messages.map((message, index) => (
+            <Message
+              isMe={message.nickname === nickname}
+              {...message}
+              key={index}
+            />
+          ))}
+          <div ref={afterMessagesEl} />
+        </div>
       </div>
       <div className={styles.sendMessage}>
         <SendMessage onSend={onSend} onDisconnect={onTriggerDisconnect} />

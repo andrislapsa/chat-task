@@ -1,0 +1,18 @@
+.user, .system {
+  border-top: 1px solid #eee;
+  padding-top: 3px;
+  margin-top: 3px;
+}
+
+.user {
+  color: #000;
+
+  &.me strong {
+    color: steelblue;
+  }
+}
+
+.system {
+  color: #777;
+}
+

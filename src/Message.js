@@ -1,19 +1,20 @@
 import React from 'react';
+import classnames from 'classnames';
+import styles from './Message.module.scss';
 
 
 export function Message({ type, nickname, isMe, message }) {
   if (type === 'system') {
     return (
-      // TODO add style
-      <div className='system'>
+      <div className={styles.system}>
         {message}
       </div>
     );
   }
 
   return (
-    <div>
-      {isMe ? <strong>{nickname}</strong> : nickname} says: {message}
+    <div className={classnames(styles.user, { [styles.me]: isMe })}>
+      <strong>{nickname}</strong> says: {message}
     </div>
   );
 }
