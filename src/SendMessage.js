@@ -23,6 +23,9 @@ export function SendMessage({ onSend, onDisconnect }) {
         id="messageToSend"
         autoFocus
         placeholder="Write your message here and hit send"
+        required
+        minLength={3}
+        maxLength={255}
       />
       <button type="submit">Send</button>
       <button type="button" onClick={onDisconnect}>Disconnect</button>
