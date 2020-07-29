@@ -15,8 +15,8 @@ export function ChatPage({ nickname, onSend, messages, onTriggerDisconnect }) {
     <div className={styles.root}>
       <div className={styles.messagesContainer}>
         <div className={styles.messages}>
-          <div>
-            Welcome to the chat <strong className={styles.me}>{nickname}</strong>!
+          <div className={styles.welcome}>
+            Welcome to the chat <strong>{nickname}</strong>!
           </div>
           {messages.map((message, index) => (
             <Message
