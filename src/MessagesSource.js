@@ -22,12 +22,13 @@ export function MessagesSource({ nickname, onDisconnect, onConnected, children }
       setIsLoading(false);
     }
 
-    webSocket.current.onerror = (evt) => {
-      onDisconnect(evt.reason);
+    webSocket.current.onerror = () => {
+      webSocket.current.onclose = () => {};
+      onDisconnect('Cannot connect due to server error, try again later');
     }
 
     webSocket.current.onclose = (evt) => {
-      onDisconnect(evt.reason);
+      onDisconnect(evt.reason || 'Disconnected due to server going offline');
     }
   }, [nickname, onConnected, onDisconnect]);
 
@@ -43,14 +44,10 @@ export function MessagesSource({ nickname, onDisconnect, onConnected, children }
 
   if (isLoading) return null;
 
-  return (
-    <>
-      {React.cloneElement(children, {
-        nickname,
-        messages,
-        onSend,
-        onTriggerDisconnect,
-      })}
-    </>
-  );
+  return React.cloneElement(children, {
+    nickname,
+    messages,
+    onSend,
+    onTriggerDisconnect,
+  });
 }
