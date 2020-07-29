@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import styles from './LandingPage.module.scss';
 
 
-export function LandingPage({ onConnect }) {
+const ErrorMessage = ({ message }) => message && (
+  <div className={styles.errorMessage}>
+    {message}
+  </div>
+);
+
+export function LandingPage({ onConnect, connectionError }) {
   const [nickname, setNickname] = useState('');
 
   function onSubmit(e) {
@@ -13,6 +19,7 @@ export function LandingPage({ onConnect }) {
   return (
     <div className={styles.root}>
       <h1>Intro page!</h1>
+      <ErrorMessage message={connectionError} />
       <form onSubmit={onSubmit}>
         <label htmlFor="userNickname">
           Nickname:

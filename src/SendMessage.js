@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './SendMessage.module.scss';
 
 
-export function SendMessage({ onSend }) {
+export function SendMessage({ onSend, onDisconnect }) {
   const [message, setMessage] = useState('');
 
   function onSubmit(e) {
@@ -25,6 +25,7 @@ export function SendMessage({ onSend }) {
         placeholder="Write your message here and hit send"
       />
       <button type="submit">Send</button>
+      <button type="button" onClick={onDisconnect}>Disconnect</button>
     </form>
   );
 }

@@ -1,39 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { Message } from './Message';
 import { SendMessage } from './SendMessage';
 import styles from './ChatPage.module.scss';
 
 
-export function ChatPage({ nickname, onDisconnect }) {
-  const URL = 'ws://localhost:3030';
-  const [messages, setMessages] = useState([]);
-  const webSocket = useRef(null);
-
-  useEffect(() => {
-    webSocket.current = new WebSocket(`${URL}?nickname=${nickname}`);
-    console.log('WS inst created');
-
-    webSocket.current.onopen = () => {
-      console.log('connected');
-    }
-
-    webSocket.current.onmessage = evt => {
-      const message = JSON.parse(evt.data);
-      console.log('on message', message);
-      setMessages(prev => prev.concat(message));
-    }
-
-    webSocket.current.onclose = () => {
-      onDisconnect('got disconnected from WS');
-    }
-
-    window.ACTIVE_WS = webSocket.current;
-  }, [nickname, onDisconnect]);
-
-  function onSend(message) {
-    webSocket.current.send(message);
-  }
-
+export function ChatPage({ nickname, onSend, messages, onTriggerDisconnect }) {
   return (
     <div className={styles.root}>
       <div className={styles.messages}>
@@ -47,7 +18,7 @@ export function ChatPage({ nickname, onDisconnect }) {
         ))}
       </div>
       <div className={styles.sendMessage}>
-        <SendMessage onSend={onSend} />
+        <SendMessage onSend={onSend} onDisconnect={onTriggerDisconnect} />
       </div>
     </div>
   );

@@ -1,33 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { LandingPage } from './LandingPage';
+import { MessagesSource } from './MessagesSource';
 import { ChatPage } from './ChatPage';
 
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   const [nickname, setNickname] = useState('');
+  const [connectionError, setConnectionError] = useState(null);
 
   function onConnect(chosenNickname) {
-    setIsConnected(true);
+    setIsConnecting(true);
     setNickname(chosenNickname);
   }
 
-  function onDisconnect(reason) {
-    console.log('got disconnected because', reason);
+  const onConnected = useCallback(() => {
+    setIsConnected(true);
+    setIsConnecting(false);
+    setConnectionError(null);
+  }, []);
+
+  const onDisconnect = useCallback((reason) => {
+    setConnectionError(reason);
     setIsConnected(false);
-  }
+  }, []);
 
   return (
     <>
-      {isConnected ?
-        <ChatPage
-          onDisconnect={onDisconnect}
-          nickname={nickname}
-        /> :
+      {!isConnected && (
         <LandingPage
           onConnect={onConnect}
+          connectionError={connectionError}
         />
-      }
+      )}
+      {(isConnecting || isConnected) && (
+        <MessagesSource
+          onConnected={onConnected}
+          onDisconnect={onDisconnect}
+          nickname={nickname}
+        >
+          <ChatPage />
+        </MessagesSource>
+      )}
     </>
   );
 }
