@@ -24,6 +24,7 @@ function App() {
   const onDisconnect = useCallback((reason) => {
     setConnectionError(reason);
     setIsConnected(false);
+    setIsConnecting(false);
   }, []);
 
   return (
